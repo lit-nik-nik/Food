@@ -2,7 +2,7 @@
 
 window.addEventListener('DOMContentLoaded', () => {
 
-    const deadline = '2020-05-30';
+    const deadline = '2020-05-31';
 
     function restTime(endtime) {
         let time = Date.parse(endtime) - new Date().getTime();
