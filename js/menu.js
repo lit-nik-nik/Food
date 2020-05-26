@@ -72,10 +72,18 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         Price() {
-            const price = document.createElement('div');
+            const price = document.createElement('div'),
+                  cost = document.createElement('div'),
+                  total = document.createElement('div'),
+                  span = document.createElement('span');
 
             price.classList.add('menu__item-price');
-            price.innerHTML = `<div class='menu__item-cost'>Цена:</div><div class='menu__item-total'><span>${this.price}</span> грн/день</div>`;
+            cost.classList.add('menu__item-cost');
+            total.classList.add('menu__item-total');
+            cost.innerHTML = `Цена:`;
+            span.innerHTML = `${this.price}`;
+            total.innerHTML = `${span.outerHTML} грн/день`;
+            price.innerHTML = `${cost.outerHTML} ${total.outerHTML}`;
 
             return price.outerHTML;
         }
@@ -99,5 +107,5 @@ window.addEventListener('DOMContentLoaded', () => {
     menuList.innerHTML = '';
 
     menuList.innerHTML = `${vegy.Create()} ${elite.Create()} ${post.Create()}`;
-    
+
 });
