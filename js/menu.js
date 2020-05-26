@@ -80,6 +80,7 @@ window.addEventListener('DOMContentLoaded', () => {
             price.classList.add('menu__item-price');
             cost.classList.add('menu__item-cost');
             total.classList.add('menu__item-total');
+            
             cost.innerHTML = `Цена:`;
             span.innerHTML = `${this.price}`;
             total.innerHTML = `${span.outerHTML} грн/день`;
