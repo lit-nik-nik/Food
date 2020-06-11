@@ -4,11 +4,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const btn = document.querySelectorAll('button[data-modal]'),
           modal = document.querySelector('.modal'),
-          close = document.querySelector('div[data-close]'),
           modalTimer = setTimeout(displayModal, 5000);
     
     function displayModal () {
-        const style = window.getComputedStyle(modal);
+        const style = getComputedStyle(modal);
 
         if (style.display == 'none') {
             modal.style.display = 'block';
@@ -24,10 +23,8 @@ window.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('click', displayModal);
     });
 
-    close.addEventListener('click', displayModal);
-
     modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
+        if (event.target === modal || event.target.getAttribute('data-close') == '') {
             displayModal();
         }
     });
@@ -46,5 +43,4 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('scroll', showModalByScroll);
-    
 });
