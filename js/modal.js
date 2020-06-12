@@ -4,43 +4,122 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const btn = document.querySelectorAll('button[data-modal]'),
           modal = document.querySelector('.modal'),
-          modalTimer = setTimeout(displayModal, 5000);
+          modalTimer = setTimeout(openModal, 30000);
     
-    function displayModal () {
-        const style = getComputedStyle(modal);
+    function openModal () {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        clearTimeout(modalTimer);
+    }
 
-        if (style.display == 'none') {
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            clearTimeout(modalTimer);
-        } else {
+    function closeModal () {
             modal.style.display = 'none';
             document.body.style.overflow = '';
-        }
     }
 
     btn.forEach (item => {
-        item.addEventListener('click', displayModal);
+        item.addEventListener('click', openModal);
     });
 
     modal.addEventListener('click', (event) => {
         if (event.target === modal || event.target.getAttribute('data-close') == '') {
-            displayModal();
+            closeModal();
         }
     });
 
     document.addEventListener('keydown', (event) => {
         if (event.code === 'Escape' && modal.style.display == 'block') {
-            displayModal();
+            closeModal();
         }
     });
 
     function showModalByScroll() {
         if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
-            displayModal();
+            openModal();
             window.removeEventListener('scroll', showModalByScroll);
         }
     }
 
     window.addEventListener('scroll', showModalByScroll);
+
+    //форма отправки сообщения
+    
+    const forms = document.querySelectorAll('form'),
+          message = {
+            call: 'Перезвонить мне',
+            load: 'Загрузка',
+            finish: 'Сообщение отправлено',
+            error: 'Ошибка отправки'
+          };
+
+    forms.forEach(item => {
+        postData(item);
+    });
+
+    function postData(form) {
+        function defaultButton(text) {
+            const button = form.querySelector('button');
+
+            button.innerHTML = text;
+            setTimeout(() => {
+                button.innerHTML = message.call;
+            }, 4000);
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form),
+                  obj = {};
+    
+            formData.forEach((item, key) => {
+                obj[key] = item;
+            });
+    
+            defaultButton(message.load);
+
+            fetch('server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(obj)
+            })
+            .then(data => data.text())
+            .then(data => {
+                console.log(data);
+                changeModal(message.finish);
+            })
+            .catch(() => {
+                changeModal(message.error);
+            })
+            .finally(() => {
+                form.reset();
+            });
+        });
+    }
+
+    function changeModal(message) {
+        const modal = document.querySelector('.modal__dialog'),
+              newModal = document.createElement('div');
+        
+        modal.style.display = 'none';
+        openModal();
+
+        newModal.classList.add('modal__dialog');
+        newModal.innerHTML = `
+            <div class="modal__content">
+                <div data-close class="modal__close">&times;</div>
+                <div class="modal__title">${message}</div>
+            </div>
+        `;
+
+        document.querySelector('.modal').append(newModal);
+
+        setTimeout(() => {
+            newModal.remove();
+            modal.style.display = 'block';
+            closeModal();
+        }, 5000);
+    }
 });
