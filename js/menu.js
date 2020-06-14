@@ -2,29 +2,15 @@
 
 window.addEventListener('DOMContentLoaded', () => {
 
-    const dataMenu = {
-        vegy: {
-            srcImg: 'vegy.jpg',
-            alt: 'vegy',
-            title: 'Меню "Фитнес"',
-            descr: 'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
-            price: '229'
-        },
-        elite: {
-            srcImg: 'elite.jpg',
-            alt: 'elite',
-            title: 'Меню “Премиум”',
-            descr: 'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
-            price: '550'
-        },
-        post: {
-            srcImg: 'post.jpg',
-            alt: 'post',
-            title: 'Меню "Постное"',
-            descr: 'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
-            price: '430'
-        },
-    };
+    async function getData(url) {
+        let res = await fetch(url);
+
+        if (!res.ok) {
+            new Error(`Ошибка доступа к серверу по адресу: ${url}, статус: ${res.status}`);
+        }
+
+        return await res.json();
+    }
 
     class cardsMenu {
         constructor (srcImg, alt, title, descr, price) {
@@ -32,13 +18,14 @@ window.addEventListener('DOMContentLoaded', () => {
             this.alt = alt;
             this.title = title;
             this.descr = descr;
-            this.price = price;
+            this.convert = 27;
+            this.price = +price * this.convert;
         }
 
         Img() {
            const img = document.createElement('img');
 
-           img.src = `img/tabs/${this.srcImg}`;
+           img.src = `${this.srcImg}`;
            img.alt = `${this.alt}`;
 
            return img.outerHTML;
@@ -94,19 +81,29 @@ window.addEventListener('DOMContentLoaded', () => {
 
             itemMenu.classList.add('menu__item');
 
-            itemMenu.innerHTML = `${this.Img()} ${this.Title()} ${this.Description()} ${this.Devider()} ${this.Price()}`;
+            itemMenu.innerHTML = `
+                ${this.Img()} 
+                ${this.Title()} 
+                ${this.Description()} 
+                ${this.Devider()} 
+                ${this.Price()}
+            `;
             
-            return itemMenu.outerHTML;
+            document.querySelector('.menu__field .container').append(itemMenu);
         }
     }
 
-    const vegy = new cardsMenu(dataMenu.vegy.srcImg, dataMenu.vegy.alt, dataMenu.vegy.title, dataMenu.vegy.descr, dataMenu.vegy.price),
-          elite = new cardsMenu(dataMenu.elite.srcImg, dataMenu.elite.alt, dataMenu.elite.title, dataMenu.elite.descr, dataMenu.elite.price),
-          post = new cardsMenu(dataMenu.post.srcImg, dataMenu.post.alt, dataMenu.post.title, dataMenu.post.descr, dataMenu.post.price),
-          menuList = document.querySelector('.menu__field .container');
-
-    menuList.innerHTML = '';
-
-    menuList.innerHTML = `${vegy.Create()} ${elite.Create()} ${post.Create()}`;
+    getData('http://localhost:3000/menu')
+    .then (data => {
+        data.forEach(({img, altimg, title, descr, price}) => {
+            new cardsMenu(
+                img,
+                altimg,
+                title,
+                descr,
+                price
+            ).Create();
+        });
+    });
 
 });

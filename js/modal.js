@@ -53,10 +53,23 @@ window.addEventListener('DOMContentLoaded', () => {
           };
 
     forms.forEach(item => {
-        postData(item);
+        modalPostData(item);
     });
 
-    function postData(form) {
+
+    async function postData (url, data) {
+        let res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: data
+            });
+
+        return await res.json();
+    }
+
+    function modalPostData(form) {
         function defaultButton(text) {
             const button = form.querySelector('button');
 
@@ -70,22 +83,11 @@ window.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const formData = new FormData(form),
-                  obj = {};
-    
-            formData.forEach((item, key) => {
-                obj[key] = item;
-            });
-    
+                  json = JSON.stringify(Object.fromEntries(formData.entries()));
+
             defaultButton(message.load);
 
-            fetch('server.php', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(obj)
-            })
-            .then(data => data.text())
+            postData('http://localhost:3000/requests', json)
             .then(data => {
                 console.log(data);
                 changeModal(message.finish);
@@ -96,6 +98,7 @@ window.addEventListener('DOMContentLoaded', () => {
             .finally(() => {
                 form.reset();
             });
+
         });
     }
 
