@@ -11,14 +11,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let i = 0;
 
-    //выставление общего количества слайдов на странице
+    // Отображение общего количества слайдов на странице
     if (slides.length <= 9) {
         total.innerHTML = `0${slides.length}`;
     } else {
         total.innerHTML = `${slides.length}`;
     }
 
-    // функция нумерации отображаемого слайда
+    // Нумерация отображаемого слайда
     function editCurrent(i) {
         if (slides.length <= 9) {
             current.innerHTML = `0${i}`;
@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    //функция скрытия слайдов
+    // Скрытие слайдов
     function hideSlide() {
         slides.forEach(slide => {
             slide.style.display = 'none';
@@ -35,14 +35,14 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //функция показа определенного слайда
+    // Показ определенного слайда
     function showSlide(i = 0) {
         slides[i].style.display = 'block';
         slides[i].classList.add('fade');
 
     }
 
-    //функция изменения слайда по времени
+    // Изменение слайда
     function editSlide(route = 'next') {
 
         let key, compare, value;
@@ -69,12 +69,12 @@ window.addEventListener('DOMContentLoaded', () => {
         editCurrent(i + 1);  
     }
 
-    //событие на показ следующего слайда
+    // Событие на показ следующего слайда
     next.addEventListener('click', () => {
         editSlide();
     });
 
-    //событие на показ предыдущего слайда
+    // Событие на показ предыдущего слайда
     prev.addEventListener('click', () => {
         editSlide('prev');
     });
