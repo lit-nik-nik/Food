@@ -13,8 +13,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeModal () {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
     }
 
     btn.forEach (item => {
