@@ -3,7 +3,7 @@
 window.addEventListener('DOMContentLoaded', () => {
 
     const parentTabs = document.querySelector('.tabheader__items'),
-          tabs = parentTabs.querySelectorAll('.tabheader__item'),
+          tabs = document.querySelectorAll('.tabheader__item'),
           contentTabs = document.querySelectorAll('.tabcontent');
 
     const hideTabs = () => {
@@ -30,7 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const target = event.target;
         if (target && target.classList.contains('tabheader__item')) {
             tabs.forEach ((item, i) => {
-                if (item == target) {
+                if (target == item) {
                     hideTabs();
                     showTabs(i);
                 }
