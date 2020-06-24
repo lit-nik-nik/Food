@@ -7,8 +7,18 @@ window.addEventListener('DOMContentLoaded', () => {
           actives = calculate.querySelectorAll('.calculating__choose_big div'),
           inputs = calculate.querySelectorAll('input'),
           result = calculate.querySelector('.calculating__result span');
+    
+    let weight = localStorage.getItem('weight'), 
+        height = localStorage.getItem('height'), 
+        age = localStorage.getItem('age'), 
+        active;
 
-    let weight, height, age, active = 1.375;
+    if (!localStorage.getItem('active')) {
+        localStorage.setItem('active', 1.375);
+        active = localStorage.getItem('active');
+    } else {
+        active = localStorage.getItem('active');
+    }
 
     function changeActiveClass(items, i) {
         items.forEach(item => {
@@ -22,12 +32,16 @@ window.addEventListener('DOMContentLoaded', () => {
             result.innerHTML = '_____';
         } else {
             genders.forEach(gender => {
-                if ( gender.innerHTML === 'Женщина' && 
-                     gender.classList.contains('calculating__choose-item_active')) {
-                    result.innerHTML = Math.round(447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age) * active);
-                } else if ( gender.innerHTML === 'Мужчина' && 
-                            gender.classList.contains('calculating__choose-item_active')) {
-                    result.innerHTML = Math.round(88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age) * active);
+                if ( 
+                    gender.innerHTML === 'Женщина' && 
+                    gender.classList.contains('calculating__choose-item_active')
+                   ) {
+                    result.innerHTML = Math.round((447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * active);
+                } else if ( 
+                            gender.innerHTML === 'Мужчина' && 
+                            gender.classList.contains('calculating__choose-item_active')
+                          ) {
+                    result.innerHTML = Math.round((88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * active);
                 }
             });
         }
@@ -35,18 +49,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function dinamicContent() {
         inputs.forEach(input => {
+            input.value = localStorage.getItem(input.id);
+            
             input.addEventListener('input', () => {
                 switch(input.getAttribute('id')) {
                     case 'height':
-                        height = input.value;
+                        height = +input.value;
                         break;
                     case 'weight':
-                        weight = input.value;
+                        weight = +input.value;
                         break;
                     case 'age':
-                        age = input.value;
+                        age = +input.value;
                         break;
                 }
+
+                localStorage.setItem(input.id, input.value);
                 calcCalories();
             });
         });
@@ -59,16 +77,20 @@ window.addEventListener('DOMContentLoaded', () => {
                 if (item.getAttribute('id')) {
                     switch (item.getAttribute('id')) {
                         case 'low':
-                            active = 1.2;
+                            localStorage.setItem('active', 1.2);
+                            active = localStorage.getItem('active');
                             break;
                         case 'small':
-                            active = 1.375;
+                            localStorage.setItem('active', 1.375);
+                            active = localStorage.getItem('active');
                             break;
                         case 'medium':
-                            active = 1.55;
+                            localStorage.setItem('active', 1.55);
+                            active = localStorage.getItem('active');
                             break;
                         case 'high':
-                            active = 1.725;
+                            localStorage.setItem('active', 1.725);
+                            active = localStorage.getItem('active');
                             break;
                     }
                 }
@@ -77,8 +99,8 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    calcCalories();
     dinamicContent();
     staticContent(actives);
     staticContent(genders);
+    calcCalories();
 });
