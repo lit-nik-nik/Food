@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
         age = localStorage.getItem('age'), 
         active;
 
+    // Установка значения для переменной active
     if (!localStorage.getItem('active')) {
         localStorage.setItem('active', 1.375);
         active = localStorage.getItem('active');
@@ -20,13 +21,15 @@ window.addEventListener('DOMContentLoaded', () => {
         active = localStorage.getItem('active');
     }
 
+    // Изменение активного класса
     function changeActiveClass(items, i) {
         items.forEach(item => {
             item.classList.remove('calculating__choose-item_active');
         });
         items[i].classList.add('calculating__choose-item_active');
     }
-          
+
+    // Формула расчета каллорий
     function calcCalories() {
         if (!weight || !height || !age || !active) {
             result.innerHTML = '_____';
@@ -47,6 +50,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Получение данных из диннамических полей
     function dinamicContent() {
         inputs.forEach(input => {
             input.value = localStorage.getItem(input.id);
@@ -70,10 +74,12 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Получение данных их статичных полей
     function staticContent(content) {
         content.forEach((item, i) => {
             item.addEventListener('click', () => {
                 changeActiveClass(content, i);
+
                 if (item.getAttribute('id')) {
                     switch (item.getAttribute('id')) {
                         case 'low':
@@ -94,6 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             break;
                     }
                 }
+                
                 calcCalories();
             });
         });
