@@ -56,17 +56,18 @@ window.addEventListener('DOMContentLoaded', () => {
         modalPostData(item);
     });
 
+    //функция отправки данных через axios
+    async function postData(url, data) {
+        let res = await axios({
+            method: 'post',
+            url: url,
+            headers: {
+                'Content-type': 'application/json'
+            },
+            data: data,
+        });
 
-    async function postData (url, data) {
-        let res = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: data
-            });
-
-        return await res.json();
+        return await res;
     }
 
     function modalPostData(form) {
@@ -88,11 +89,12 @@ window.addEventListener('DOMContentLoaded', () => {
             defaultButton(message.load);
 
             postData('http://localhost:3000/requests', json)
-            .then(data => {
-                console.log(data);
+            .then(function (response) {
+                console.log(response.data);
                 changeModal(message.finish);
             })
-            .catch(() => {
+            .catch(function (error) {
+                console.log(error);
                 changeModal(message.error);
             })
             .finally(() => {
