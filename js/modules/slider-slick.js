@@ -1,6 +1,4 @@
-'use strict';
-
-window.addEventListener('DOMContentLoaded', () => {
+function sliderSlick() {
 
     const slider = document.querySelector('.offer__slider'),
           sliderWrapper = slider.querySelector('.offer__slider-wrapper'),
@@ -138,4 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     editCurrent(i);
-});
+
+}
+
+module.exports = sliderSlick;

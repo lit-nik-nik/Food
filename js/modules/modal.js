@@ -1,6 +1,4 @@
-'use strict';
-
-window.addEventListener('DOMContentLoaded', () => {
+function modal() {
 
     const btn = document.querySelectorAll('button[data-modal]'),
           modal = document.querySelector('.modal'),
@@ -127,4 +125,7 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 5000);
     }
-});
+
+}
+
+module.exports = modal;

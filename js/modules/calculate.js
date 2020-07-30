@@ -1,7 +1,5 @@
-'use strict';
-
-window.addEventListener('DOMContentLoaded', () => {
-
+function calc() {
+    
     const calculate = document.querySelector('.calculating'),
           genders = calculate.querySelectorAll('#gender div'),
           actives = calculate.querySelectorAll('.calculating__choose_big div'),
@@ -110,4 +108,7 @@ window.addEventListener('DOMContentLoaded', () => {
     staticContent(actives);
     staticContent(genders);
     calcCalories();
-});
+}
+
+module.exports = calc;
+    

@@ -1,6 +1,4 @@
-'use strict';
-
-window.addEventListener('DOMContentLoaded', () => {
+function tabs() {
 
     const parentTabs = document.querySelector('.tabheader__items'),
           tabs = document.querySelectorAll('.tabheader__item'),
@@ -38,4 +36,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-});
+}
+
+module.exports = tabs;

@@ -1,8 +1,6 @@
-'use strict';
+function timer() {
 
-window.addEventListener('DOMContentLoaded', () => {
-
-    const deadline = '2020-06-30';
+    const deadline = '2020-08-30';
 
     function restTime(endtime) {
         let time = Date.parse(endtime) - new Date().getTime();
@@ -59,4 +57,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     Timer(deadline);
 
-});
+}
+
+module.exports = timer;

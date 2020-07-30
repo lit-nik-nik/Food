@@ -1,16 +1,4 @@
-'use strict';
-
-window.addEventListener('DOMContentLoaded', () => {
-
-    async function getData(url) {
-        let res = await fetch(url);
-
-        if (!res.ok) {
-            new Error(`Ошибка доступа к серверу по адресу: ${url}, статус: ${res.status}`);
-        }
-
-        return await res.json();
-    }
+function cards() {
 
     class cardsMenu {
         constructor (srcImg, alt, title, descr, price) {
@@ -105,4 +93,7 @@ window.addEventListener('DOMContentLoaded', () => {
             ).Create();
         });
     });
-});
+
+}
+
+module.exports = cards;

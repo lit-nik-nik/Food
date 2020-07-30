@@ -1,6 +1,4 @@
-'use strict';
-
-window.addEventListener('DOMContentLoaded', () => {
+function sliderFade() {
 
     const slides = document.querySelectorAll('.offer__slide'),
           prev = document.querySelector('.offer__slider-prev'),
@@ -82,4 +80,7 @@ window.addEventListener('DOMContentLoaded', () => {
     hideSlide();
     showSlide();
     editCurrent(i + 1);
-});
+
+}
+
+module.exports = sliderFade;
