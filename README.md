@@ -1,2 +1,2 @@
-Project_1
-# Project_1
+Educational project Landing-page 'Food'
+# Educational project Landing-page 'Food'
