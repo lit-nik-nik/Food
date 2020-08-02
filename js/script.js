@@ -1,19 +1,30 @@
 'use strict';
 
-window.addEventListener('DOMContentLoaded', () => {
+    import calc from './modules/calculate';
+    import cards from './modules/cards_menu';
+    import modal from './modules/modal';
+    import sliderSlick from './modules/slider-slick';
+    import tabs from './modules/tabs';
+    import timer from './modules/timer';
 
-    const calc = require('./modules/calculate'),
-          cards = require('./modules/cards_menu'),
-          modal = require('./modules/modal'),
-          sliderSlick = require('./modules/slider-slick'),
-          tabs = require('./modules/tabs'),
-          timer = require('./modules/timer');
+window.addEventListener('DOMContentLoaded', () => {
 
     calc();
     cards();
-    modal();
-    sliderSlick();
-    tabs();
-    timer();
+    modal('button[data-modal]', '.modal');
+    sliderSlick({
+        container: '.offer__slider', 
+        wrapper: '.offer__slider-wrapper', 
+        inner: '.offer__slider-inner', 
+        slide: '.offer__slide', 
+        prevArrow: '.offer__slider-prev', 
+        nextArrow: '.offer__slider-next', 
+        totalId: '#total', 
+        currentId: '#current', 
+        indicatorElem: 'ol'
+    });
+    tabs('.tabheader__items', '.tabheader__item', '.tabcontent', '.tabheader__item_active');
+    timer('.timer', '2020-08-30');
+
 });
 

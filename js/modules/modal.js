@@ -1,7 +1,9 @@
-function modal() {
+import {postData} from '../services/services';
 
-    const btn = document.querySelectorAll('button[data-modal]'),
-          modal = document.querySelector('.modal'),
+function modal(btnSelector, modalSelector) {
+
+    const btn = document.querySelectorAll(btnSelector),
+          modal = document.querySelector(modalSelector),
           modalTimer = setTimeout(openModal, 30000);
     
     function openModal () {
@@ -53,20 +55,6 @@ function modal() {
     forms.forEach(item => {
         modalPostData(item);
     });
-
-    //функция отправки данных через axios
-    async function postData(url, data) {
-        let res = await axios({
-            method: 'post',
-            url: url,
-            headers: {
-                'Content-type': 'application/json'
-            },
-            data: data,
-        });
-
-        return await res;
-    }
 
     function modalPostData(form) {
         function defaultButton(text) {
@@ -128,4 +116,4 @@ function modal() {
 
 }
 
-module.exports = modal;
+export default modal;

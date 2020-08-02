@@ -1,3 +1,5 @@
+import {getData} from '../services/services';
+
 function cards() {
 
     class cardsMenu {
@@ -81,7 +83,7 @@ function cards() {
         }
     }
 
-    axios.get('http://localhost:3000/menu')
+    getData('http://localhost:3000/menu')
     .then (data => {
         data.data.forEach(({img, altimg, title, descr, price}) => {
             new cardsMenu(
@@ -96,4 +98,4 @@ function cards() {
 
 }
 
-module.exports = cards;
+export default cards;

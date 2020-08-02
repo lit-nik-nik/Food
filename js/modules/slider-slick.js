@@ -1,15 +1,15 @@
-function sliderSlick() {
+function sliderSlick({container, wrapper, inner, slide, prevArrow, nextArrow, totalId, currentId, indicatorElem}) {
 
-    const slider = document.querySelector('.offer__slider'),
-          sliderWrapper = slider.querySelector('.offer__slider-wrapper'),
-          sliderInner = sliderWrapper.querySelector('.offer__slider-inner'),
-          slides = sliderInner.querySelectorAll('.offer__slide'),
-          prev = slider.querySelector('.offer__slider-prev'),
-          next = slider.querySelector('.offer__slider-next'),
-          total = slider.querySelector('#total'),
-          current = slider.querySelector('#current'),
+    const slider = document.querySelector(container),
+          sliderWrapper = slider.querySelector(wrapper),
+          sliderInner = sliderWrapper.querySelector(inner),
+          slides = sliderInner.querySelectorAll(slide),
+          prev = slider.querySelector(prevArrow),
+          next = slider.querySelector(nextArrow),
+          total = slider.querySelector(totalId),
+          current = slider.querySelector(currentId),
           width = +window.getComputedStyle(sliderWrapper).width.slice(0, 3),
-          indicator = document.createElement('ol');
+          indicator = document.createElement(indicatorElem);
 
     let i = 1,
         transform = 0,
@@ -139,4 +139,4 @@ function sliderSlick() {
 
 }
 
-module.exports = sliderSlick;
+export default sliderSlick;

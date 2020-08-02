@@ -1,6 +1,4 @@
-function timer() {
-
-    const deadline = '2020-08-30';
+function timer(timerSelector, deadline) {
 
     function restTime(endtime) {
         let time = Date.parse(endtime) - new Date().getTime();
@@ -27,8 +25,8 @@ function timer() {
         }
     }
 
-    function Timer(endtime) {
-        const timerBlock = document.querySelector('.timer'),
+    function addTimer(timerSelector, endtime) {
+        const timerBlock = document.querySelector(timerSelector),
               days = timerBlock.querySelector('#days'),
               hours = timerBlock.querySelector('#hours'),
               minutes = timerBlock.querySelector('#minutes'),
@@ -55,8 +53,8 @@ function timer() {
         }
     }
 
-    Timer(deadline);
+    addTimer(timerSelector, deadline);
 
 }
 
-module.exports = timer;
+export default timer;

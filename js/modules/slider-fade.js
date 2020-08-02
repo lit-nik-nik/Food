@@ -83,4 +83,4 @@ function sliderFade() {
 
 }
 
-module.exports = sliderFade;
+export default sliderFade;
